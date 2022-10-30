@@ -26,8 +26,10 @@ public class RegistrationPayloadTests {
     validator = factory.getValidator();
   }
 
-  @Test
   // [작업 단위_테스트 중인 상태_예상되는 행동]
+
+  @Test
+  // 값이 공백일 때 검증 실패
   public void validate_blankPayload_shouldFail() {
     RegistrationPayload payload = new RegistrationPayload();
     Set<ConstraintViolation<RegistrationPayload>> violations = validator.validate(payload);
@@ -35,6 +37,7 @@ public class RegistrationPayloadTests {
   }
 
   @Test
+  // 유효하지 않은 이메일 검증 실패
   public void validate_payloadWithInvalidEmail_shouldFail() {
     RegistrationPayload payload = new RegistrationPayload();
     payload.setEmailAddress("BadEmailAddress");
@@ -46,6 +49,7 @@ public class RegistrationPayloadTests {
   }
 
   @Test
+  // 이메일 값 100자 초과 검증 실패
   public void validate_payloadWithEmailAddressLongerThan100_shouldFail() {
     // The maximium allowed localPart is 64 characters
     // http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690
@@ -64,6 +68,7 @@ public class RegistrationPayloadTests {
   }
 
   @Test
+  // 닉네임 값 2자 미만 검증 실패
   public void validate_payloadWithUsernameShorterThan2_shouldFail() {
     RegistrationPayload payload = new RegistrationPayload();
     String usernameTooShort = RandomStringUtils.random(1);
@@ -76,6 +81,7 @@ public class RegistrationPayloadTests {
   }
 
   @Test
+  // 닉네임 값 50자 초과 검증 실패
   public void validate_payloadWithUsernameLongerThan50_shouldFail() {
     RegistrationPayload payload = new RegistrationPayload();
     String usernameTooLong = RandomStringUtils.random(51);
@@ -88,6 +94,7 @@ public class RegistrationPayloadTests {
   }
 
   @Test
+  // 비밀번호 값 6자 미만 검증 실패
   public void validate_payloadWithPasswordShorterThan6_shouldFail() {
     RegistrationPayload payload = new RegistrationPayload();
     String passwordTooShort = RandomStringUtils.random(5);
@@ -100,6 +107,7 @@ public class RegistrationPayloadTests {
   }
 
   @Test
+  // 비밀번호 값 30자 초과 검증 실패
   public void validate_payloadWithPasswordLongerThan30_shouldFail() {
     RegistrationPayload payload = new RegistrationPayload();
     String passwordTooLong = RandomStringUtils.random(31);
