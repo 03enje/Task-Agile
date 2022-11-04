@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.taskagile.domain.application.commands.RegistrationCommand;
 import com.taskagile.domain.application.impl.UserServiceImpl;
+import com.taskagile.domain.common.event.DomainEventPublisher;
 import com.taskagile.domain.model.user.EmailAddressExistsException;
 import com.taskagile.domain.model.user.RegistrationException;
 import com.taskagile.domain.model.user.UsernameExistsException;
