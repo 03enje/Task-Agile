@@ -10,8 +10,10 @@ import com.taskagile.domain.common.event.DomainEventPublisher;
 import com.taskagile.domain.model.user.RegistrationException;
 import com.taskagile.domain.model.user.UserRegisteredEventHandler;
 
+import javax.transaction.Transactional;
+
 @Service
-@transactional
+@Transactional
 public class UserServiceImpl implements UserService{
   private RegistrationManagement registrationManagement;
   private DomainEventPublisher domainEventPublisher;
