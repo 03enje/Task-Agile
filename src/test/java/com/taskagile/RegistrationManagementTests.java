@@ -47,10 +47,8 @@ public class RegistrationManagementTests {
   public void register_existedEmailAddress_shouldFail() throws RegistrationException {
     String username = "sunny";
     String emailAddress = "existed@taskagile.com";
-    String password = "MyPassword";
+    String password = "MyPassword!";
     when(repositoryMock.findByEmailAddress(emailAddress)).thenReturn(new User());
-    instance.register(username, emailAddress, password);
-
     assertThrows(EmailAddressExistsException.class, () -> {
       instance.register(username, emailAddress, password);
     });
