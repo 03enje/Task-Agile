@@ -1,12 +1,10 @@
 package com.taskagile;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Objects;
+
+import com.taskagile.domain.common.model.AbstractBaseEntity;
 
 @Entity
 @Table(name = "user")
@@ -43,8 +41,62 @@ public class User extends AbstractBaseEntity {
     user.password = password;
     user.firstName = "";
     user.lastName = "";
-    user.createdDate = new User();
+    user.createdDate = new Date();
     return user;
+  }
 
+  public Long getId() {
+    return id;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public String getEmailAddress() {
+    return emailAddress;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof User)) return false;
+    User user = (User) o;
+    return Objects.equals(username, user.username) &&
+      Objects.equals(emailAddress, user.emailAddress);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(username, emailAddress);
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+      "id=" + id +
+      ", username='" + username + '\'' +
+      ", emailAddress='" + emailAddress + '\'' +
+      ", password=<Protected> " +
+      ", firstName='" + firstName + '\'' +
+      ", lastName='" + lastName + '\'' +
+      ", createdDate=" + createdDate +
+      '}';
   }
 }

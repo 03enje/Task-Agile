@@ -1,15 +1,21 @@
+package com.taskagile;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties.Registration;
 
+import com.taskagile.domain.model.user.EmailAddressExistsException;
 import com.taskagile.domain.model.user.RegistrationException;
+import com.taskagile.domain.model.user.UsernameExistsException;
 
 
 public class RegistrationManagementTests {
@@ -32,7 +38,9 @@ public class RegistrationManagementTests {
     String password = "MyPassword!";
     // 이미 존재하는 사용자임을 알려주고자 빈 객체를 반환한다.
     when(repositoryMock.findByUsername(username)).thenReturn(new User());
-    instance.register(username, emailAddress, password);
+    assertThrows(UsernameExistsException.class, () -> {
+      instance.register(username, emailAddress, password);
+    });
   }
 
   @Test
@@ -42,6 +50,10 @@ public class RegistrationManagementTests {
     String password = "MyPassword";
     when(repositoryMock.findByEmailAddress(emailAddress)).thenReturn(new User());
     instance.register(username, emailAddress, password);
+
+    assertThrows(EmailAddressExistsException.class, () -> {
+      instance.register(username, emailAddress, password);
+    });
   }
 
   @Test
