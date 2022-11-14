@@ -3,6 +3,8 @@ package com.taskagile;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,16 +18,16 @@ import com.taskagile.domain.model.user.UsernameExistsException;
 
 public class UserServiceImplTests {
   private RegistrationManagement registrationManagementMock;
-  private DomainEventPublisher eventPublisherMock;
+  private DomainEventPublisher domainEventPublisherMock;
   private MailManager mailManagerMock;
   private UserServiceImpl instance;
 
   @BeforeEach
   public void setUp() {
-    registrationManagementMock = mock (registrationManagement.class);
-    eventPublisherMock = mock (DomainEventPublisher.class);
+    registrationManagementMock = mock (RegistrationManagement.class);
+    domainEventPublisherMock = mock (DomainEventPublisher.class);
     mailManagerMock = mock (MailManager.class);
-    instance = new UserServiceImpl(registrationManagementMock, eventPublisherMock, mailManagerMock);
+    instance = new UserServiceImpl(registrationManagementMock, domainEventPublisherMock, mailManagerMock);
   }
 
   @Test

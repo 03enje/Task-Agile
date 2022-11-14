@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import com.taskagile.UserRegisteredEvent;
+
 @Component
 public class UserRegisteredEventHandler {
 
